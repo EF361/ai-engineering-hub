@@ -12,21 +12,21 @@ from livekit.plugins import cartesia, silero, llama_index, assemblyai
 load_dotenv()
 
 logger = logging.getLogger("voice-assistant")
-from llama_index.llms.ollama import Ollama
-from llama_index.core import (
+from llama_index.llms.ollama import Ollama  # noqa: E402
+from llama_index.core import (  # noqa: E402
     SimpleDirectoryReader,
     StorageContext,
     VectorStoreIndex,
     load_index_from_storage,
-    Settings
+    Settings,
 )
-from llama_index.core.chat_engine.types import ChatMode
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.core.chat_engine.types import ChatMode  # noqa: E402
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding  # noqa: E402
 
 load_dotenv()
 
 embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
-llm=Ollama(model="gemma3", request_timeout=120.0)
+llm = Ollama(model="gemma3", request_timeout=120.0)
 Settings.llm = llm
 Settings.embed_model = embed_model
 
@@ -56,15 +56,15 @@ async def entrypoint(ctx: JobContext):
             "Respond with short and concise answers. Avoid using unpronouncable punctuation or emojis."
         ),
     )
-    
+
     chat_engine = index.as_chat_engine(chat_mode=ChatMode.CONTEXT)
     logger.info(f"Connecting to room {ctx.room.name}")
-   
+
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
-   
+
     participant = await ctx.wait_for_participant()
     logger.info(f"Starting voice assistant for participant {participant.identity}")
-    
+
     stt_impl = assemblyai.STT()
     agent = VoicePipelineAgent(
         vad=ctx.proc.userdata["vad"],
