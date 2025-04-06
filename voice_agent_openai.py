@@ -12,16 +12,16 @@ from livekit.plugins import cartesia, openai, silero, llama_index
 load_dotenv()
 
 logger = logging.getLogger("voice-assistant")
-from llama_index.llms.ollama import Ollama
-from llama_index.core import (
+from llama_index.llms.ollama import Ollama  # noqa: E402, F401
+from llama_index.core import (  # noqa: E402
     SimpleDirectoryReader,
     StorageContext,
     VectorStoreIndex,
     load_index_from_storage,
-    Settings
+    Settings,  # noqa: F401
 )
-from llama_index.core.chat_engine.types import ChatMode
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.core.chat_engine.types import ChatMode  # noqa: E402
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding  # noqa: E402, F401
 
 load_dotenv()
 
@@ -44,7 +44,6 @@ def prewarm(proc: JobProcess):
 
 
 async def entrypoint(ctx: JobContext):
-
     chat_context = ChatContext().append(
         role="system",
         text=(
@@ -52,10 +51,8 @@ async def entrypoint(ctx: JobContext):
             "Respond with short and concise answers. Avoid using unpronouncable punctuation or emojis."
         ),
     )
-    
+
     chat_engine = index.as_chat_engine(chat_mode=ChatMode.CONTEXT)
-
-
 
     logger.info(f"Connecting to room {ctx.room.name}")
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
@@ -66,7 +63,6 @@ async def entrypoint(ctx: JobContext):
     agent = VoicePipelineAgent(
         vad=ctx.proc.userdata["vad"],
         stt=openai.STT(),
-    
         llm=llama_index.LLM(chat_engine=chat_engine),
         tts=cartesia.TTS(
             model="sonic-2",
