@@ -1,13 +1,84 @@
-# AI Engineering Hub 🚀
-Welcome to the **AI Engineering Hub**!
+# Real time RAG Voice Agent, powered by Cartesia
 
-## 🌟 Why This Repo?
-AI Engineering is advancing rapidly, and staying at the forefront requires both deep understanding and hands-on experience. Here, you will find:
-- In-depth tutorials on **LLMs and RAGs**
-- Real-world **AI agent** applications
-- Examples to implement, adapt, and scale in your projects
+This project implements a VOICE RAG Agent powered by [Cartesia](https://go.cartesia.ai/akshay)
 
-Whether you’re a beginner, practitioner, or researcher, this repo provides resources for all skill levels to experiment and succeed in AI engineering.
+## Installation
+
+Ensure you have Python 3.11 or later installed and run:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Implementation 1: voice_agent_openai.py
+
+This implementation uses OpenAI's services for speech-to-text and cartesia for speech synthesis, simpler setup if you already have OpenAI API keys.
+
+### Requirements
+1. [Cartesia AI key](https://go.cartesia.ai/akshay)
+2. OpenAI API key
+3. [LiveKit credentials](https://livekit.io/)
+
+### Setup
+1. Copy `.env.example` to `.env`
+2. Configure the following environment variables:
+```bash
+OPENAI_API_KEY=your_openai_api_key
+CARTESIA_API_KEY=your_cartesia_api_key
+LIVEKIT_URL=your_livekit_url
+LIVEKIT_API_KEY=your_livekit_api_key
+LIVEKIT_API_SECRET=your_livekit_api_secret
+```
+
+### Running
+```bash
+python voice_agent_openai.py start
+```
+
+### Connecting to Agent Playground
+
+[Livekit Agents Playground](https://agents-playground.livekit.io/)
+
+## Implementation 2: voice_agent.py
+
+This implementation uses AssemblyAI for speech processing and Ollama (with Gemma) for language tasks.
+
+### Setup
+
+1. **Install Ollama**
+   ```bash
+   # For macOS
+   brew install ollama
+   
+   # For Linux
+   curl -fsSL https://ollama.com/install.sh | sh
+   ```
+
+2. **Pull Gemma Model**
+   ```bash
+   ollama pull gemma3
+   ```
+
+3. **Configure Environment**
+   Copy `.env.example` to `.env` and set:
+   ```bash
+   CARTESIA_API_KEY=your_cartesia_api_key
+   ASSEMBLYAI_API_KEY=your_assemblyai_api_key
+   LIVEKIT_URL=your_livekit_url
+   LIVEKIT_API_KEY=your_livekit_api_key
+   LIVEKIT_API_SECRET=your_livekit_api_secret
+   ```
+
+### Running
+1. Start Ollama server:
+   ```bash
+   ollama serve
+   ```
+
+2. In a new terminal, run the voice agent:
+   ```bash
+   python voice_agent.py start
+   ```
 
 ---
 
@@ -18,18 +89,7 @@ Whether you’re a beginner, practitioner, or researcher, this repo provides res
 
 ---
 
-## 📢 Contribute to the AI Engineering Hub!
-We welcome contributors! Whether you want to add new tutorials, improve existing code, or report issues, your contributions make this community thrive. Here’s how to get involved:
-1. **Fork** the repository.
-2. Create a new branch for your contribution.
-3. Submit a **Pull Request** and describe the improvements.
+## Contribution
 
----
+Contributions are welcome! Please fork the repository and submit a pull request with your improvements.
 
-## 📜 License
-This repository is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 💬 Connect
-For discussions, suggestions, and more, feel free to [create an issue](https://github.com/patchy631/ai-engineering/issues) or reach out directly!
-
-Happy Coding! 🎉
