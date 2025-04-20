@@ -66,7 +66,7 @@ async def entrypoint(ctx: JobContext):
         llm=llama_index.LLM(chat_engine=chat_engine),
         tts=cartesia.TTS(
             model="sonic-2",
-            voice="bf0a246a-8642-498a-9950-80c35e9276b5",
+            voice="32b3f3c5-7171-46aa-abe7-b598964aa793",
         ),
         chat_ctx=chat_context,
     )
