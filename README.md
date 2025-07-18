@@ -73,6 +73,8 @@ This implementation uses AssemblyAI for speech processing and Ollama (with Gemma
 1. Start Ollama server:
    ```bash
    ollama serve
+   %if host it on another part: 
+   $env:OLLAMA_HOST="127.0.0.1:11435"; ollama serve
    ```
 
 2. In a new terminal, run the voice agent:
